@@ -1,0 +1,41 @@
+<Solution>
+  <Folder Name="/src/" />
+  <Folder Name="/src/Bootstrapper/">
+    <Project Path="src/Bootstrapper/DigitStore.Api/DigitStore.Api.csproj" />
+  </Folder>
+  <Folder Name="/src/Modules/" />
+  <Folder Name="/src/Modules/Account/">
+    <Project Path="src/Modules/Account/Account.Contracts/Account.Contracts.csproj" />
+    <Project Path="src/Modules/Account/Account.Module/Account.Module.csproj" />
+  </Folder>
+  <Folder Name="/src/Modules/Catalog/">
+    <Project Path="src/Modules/Catalog/Catalog.Contracts/Catalog.Contracts.csproj" />
+    <Project Path="src/Modules/Catalog/Catalog.Module/Catalog.Module.csproj" />
+  </Folder>
+  <Folder Name="/src/Modules/Customer/">
+    <Project Path="src/Modules/Customer/Customer.Contracts/Customer.Contracts.csproj" />
+    <Project Path="src/Modules/Customer/Customer.Module/Customer.Module.csproj" />
+  </Folder>
+  <Folder Name="/src/Modules/Distribution/">
+    <Project Path="src/Modules/Distribution/Distribution.Contracts/Distribution.Contracts.csproj" />
+    <Project Path="src/Modules/Distribution/Distribution.Module/Distribution.Module.csproj" />
+  </Folder>
+  <Folder Name="/src/Modules/Order/">
+    <Project Path="src/Modules/Order/Order.Contracts/Order.Contracts.csproj" />
+    <Project Path="src/Modules/Order/Order.Module/Order.Module.csproj" />
+  </Folder>
+  <Folder Name="/src/Modules/Payment/">
+    <Project Path="src/Modules/Payment/Payment.Contracts/Payment.Contracts.csproj" />
+    <Project Path="src/Modules/Payment/Payment.Module/Payment.Module.csproj" />
+  </Folder>
+  <Folder Name="/src/Modules/Search/">
+    <Project Path="src/Modules/Search/Search.Contracts/Search.Contracts.csproj" />
+    <Project Path="src/Modules/Search/Search.Module/Search.Module.csproj" />
+  </Folder>
+  <Folder Name="/src/Shared/">
+    <Project Path="src/Shared/Shared.Abstractions/Shared.Abstractions.csproj" />
+    <Project Path="src/Shared/Shared.Infrastructure/Shared.Infrastructure.csproj" />
+  </Folder>
+  <Folder Name="/tests/" />
+  <Folder Name="/tools/" />
+</Solution>
