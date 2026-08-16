@@ -34,6 +34,8 @@
   </Folder>
   <Folder Name="/src/Shared/">
     <Project Path="src/Shared/Shared.Abstractions/Shared.Abstractions.csproj" />
+    <Project Path="src/Shared/Shared.Application/Shared.Application.csproj" />
+    <Project Path="src/Shared/Shared.EntityFramework/Shared.EntityFramework.csproj" />
     <Project Path="src/Shared/Shared.Infrastructure/Shared.Infrastructure.csproj" />
   </Folder>
   <Folder Name="/tests/" />

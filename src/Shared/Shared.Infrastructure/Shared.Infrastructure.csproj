@@ -6,4 +6,16 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\Shared.Abstractions\Shared.Abstractions.csproj" />
+      <ProjectReference Include="..\Shared.Application\Shared.Application.csproj" />
+      <ProjectReference Include="..\Shared.EntityFramework\Shared.EntityFramework.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="FluentValidation" />
+      <PackageReference Include="FluentValidation.DependencyInjectionExtensions" />
+      <PackageReference Include="Scrutor" />
+    </ItemGroup>
+
 </Project>

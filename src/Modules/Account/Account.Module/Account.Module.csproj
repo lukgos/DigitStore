@@ -8,6 +8,15 @@
 
     <ItemGroup>
       <ProjectReference Include="..\..\..\Shared\Shared.Abstractions\Shared.Abstractions.csproj" />
+      <ProjectReference Include="..\..\..\Shared\Shared.Application\Shared.Application.csproj" />
+      <ProjectReference Include="..\..\..\Shared\Shared.EntityFramework\Shared.EntityFramework.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="FluentValidation" />
+        <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" />
+        <PackageReference Include="Microsoft.Extensions.Identity.Core" />
+        <PackageReference Include="System.IdentityModel.Tokens.Jwt" />
     </ItemGroup>
 
 </Project>
