@@ -1,4 +1,5 @@
 ﻿using Account.Module.DAL;
+using Catalog.Module.DAL;
 using Microsoft.EntityFrameworkCore;
 
 namespace DigitStore.Api;
@@ -13,8 +14,10 @@ public static class MigrationExtensions
         try
         {
             var accountDbContext = services.GetRequiredService<AccountDbContext>();
-            
+            var catalogDbContext = services.GetRequiredService<CatalogDbContext>();
+
             await accountDbContext.Database.MigrateAsync();
+            await catalogDbContext.Database.MigrateAsync();
             
         }
         catch (Exception ex)

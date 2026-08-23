@@ -1,4 +1,5 @@
 using Account.Module;
+using Catalog.Module;
 using DigitStore.Api;
 using Shared.Infrastructure;
 
@@ -6,7 +7,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddAuthorization();
 builder.Services.AddAccount(builder.Configuration);
-builder.Services.AddInfrastructureService();
+builder.Services.AddCatalog(builder.Configuration);
+builder.Services.AddInfrastructureServices();
 
 var app = builder.Build();
 

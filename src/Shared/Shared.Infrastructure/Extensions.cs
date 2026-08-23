@@ -6,7 +6,7 @@ namespace Shared.Infrastructure;
 
 public static class Extensions
 {
-    public static IServiceCollection AddInfrastructureService(this IServiceCollection services)
+    public static IServiceCollection AddInfrastructureServices(this IServiceCollection services)
     {
         services.AddHttpContextAccessor();
         services.AddScoped<IUserContext, UserContext>();
