@@ -15,4 +15,8 @@
       <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" />
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\Shared.Abstractions\Shared.Abstractions.csproj" />
+    </ItemGroup>
+
 </Project>
