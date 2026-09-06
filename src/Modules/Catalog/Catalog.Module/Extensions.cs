@@ -1,3 +1,4 @@
+using Catalog.Module.Api;
 using Catalog.Module.DAL;
 using Catalog.Module.DAL.Repositories;
 using Catalog.Module.Features.AddCategory;
@@ -16,9 +17,11 @@ namespace Catalog.Module;
 
 public static class Extensions
 {
-    public static IServiceCollection AddCatalog(this IServiceCollection services, IConfiguration configuration)
+    public static IServiceCollection AddCatalogModule(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddModuleServices(typeof(Extensions).Assembly);
+
+        services.AddCatalogApi();
         
         var connectionString = configuration.GetConnectionString("Postgres");
         
@@ -48,4 +51,3 @@ public static class Extensions
         return app;
     }
 }
-

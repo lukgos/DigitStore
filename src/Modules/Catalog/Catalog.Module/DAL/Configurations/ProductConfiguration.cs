@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Shared.Abstractions.ValueObjects;
+using Shared.EntityFramework;
 
 namespace Catalog.Module.DAL.Configurations;
 
@@ -32,12 +33,14 @@ public sealed class ProductConfiguration : IEntityTypeConfiguration<Product>
 
         builder.Property(x => x.Tags)
             .HasField("_tags")
-            .UsePropertyAccessMode(PropertyAccessMode.Field);
+            .UsePropertyAccessMode(PropertyAccessMode.Field)
+            .HasJsonCollectionConversion();
 
         builder.Property(x => x.Attributes)
             .HasField("_attributes")
             .UsePropertyAccessMode(PropertyAccessMode.Field)
-            .HasColumnType("jsonb");
+            .HasColumnType("jsonb")
+            .HasJsonCollectionConversion();
 
         builder.HasOne(x => x.Category)
             .WithMany(c => c.Products)

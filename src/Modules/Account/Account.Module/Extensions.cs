@@ -22,7 +22,7 @@ namespace Account.Module;
 
 public static class Extensions
 {
-    public static IServiceCollection AddAccount(this IServiceCollection services, IConfiguration configuration)
+    public static IServiceCollection AddAccountModule(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddModuleServices(typeof(Extensions).Assembly);
         
