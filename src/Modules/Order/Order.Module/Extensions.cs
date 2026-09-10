@@ -9,6 +9,7 @@ using Order.Module.Features.CreateOrderFromProduct;
 using Order.Module.Features.GetOrderById;
 using Order.Module.Repositories;
 using Shared.Application;
+using Shared.EntityFramework;
 
 namespace Order.Module;
 
@@ -18,13 +19,7 @@ public static class Extensions
     {
         services.AddModuleServices(typeof(Extensions).Assembly);
         
-        
-        var connectionString = configuration.GetConnectionString("Postgres");
-        
-        services.AddDbContext<OrderDbContext>(options =>
-        {
-            options.UseNpgsql(connectionString);
-        });
+        services.AddPostgres<OrderDbContext>(configuration);
         
         services.AddScoped<IOrderRepository, OrderRepository>();
 

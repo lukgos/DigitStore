@@ -3,6 +3,7 @@ using Catalog.Module;
 using DigitStore.Api;
 using Order.Module;
 using Search.Module;
+using Shared.EntityFramework;
 using Shared.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,6 +14,7 @@ builder.Services.AddCatalogModule(builder.Configuration);
 builder.Services.AddSearchModule(builder.Configuration);
 builder.Services.AddOrderModule(builder.Configuration);
 builder.Services.AddInfrastructureServices();
+builder.Services.AddEntityFrameworkServices();
 
 var app = builder.Build();
 

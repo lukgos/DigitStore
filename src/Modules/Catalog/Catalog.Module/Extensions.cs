@@ -7,11 +7,10 @@ using Catalog.Module.Features.DeleteCategory;
 using Catalog.Module.Features.GetProduct;
 using Catalog.Module.Repositories;
 using Microsoft.AspNetCore.Routing;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Npgsql;
 using Shared.Application;
+using Shared.EntityFramework;
 
 namespace Catalog.Module;
 
@@ -23,15 +22,9 @@ public static class Extensions
 
         services.AddCatalogApi();
         
-        var connectionString = configuration.GetConnectionString("Postgres");
-        
-        var dataSourceBuilder = new NpgsqlDataSourceBuilder(connectionString);
-        dataSourceBuilder.EnableDynamicJson(); 
-        var dataSource = dataSourceBuilder.Build();
-
-        services.AddDbContext<CatalogDbContext>(options =>
+        services.AddPostgres<CatalogDbContext>(configuration, builder =>
         {
-            options.UseNpgsql(dataSource);
+            builder.EnableDynamicJson();
         });
         
         services.AddScoped<ICategoryRepository, CategoryRepository>();

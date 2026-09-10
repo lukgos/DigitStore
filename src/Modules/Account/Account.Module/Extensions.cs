@@ -1,4 +1,4 @@
-﻿using System.Text;
+﻿﻿using System.Text;
 using Account.Module.Abstractions;
 using Account.Module.DAL;
 using Account.Module.DAL.Repositories;
@@ -12,11 +12,11 @@ using Account.Module.Settings;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Routing;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using Shared.Application;
+using Shared.EntityFramework;
 
 namespace Account.Module;
 
@@ -26,14 +26,9 @@ public static class Extensions
     {
         services.AddModuleServices(typeof(Extensions).Assembly);
         
+        services.AddPostgres<AccountDbContext>(configuration);
+        
         services.Configure<JwtOptions>(configuration.GetSection("JwtOptions"));
-        
-        var connectionString = configuration.GetConnectionString("Postgres");
-        
-        services.AddDbContext<AccountDbContext>(options =>
-        {
-            options.UseNpgsql(connectionString);
-        });
         
         services
             .AddSingleton<IPasswordHasher<User>, PasswordHasher<User>>()

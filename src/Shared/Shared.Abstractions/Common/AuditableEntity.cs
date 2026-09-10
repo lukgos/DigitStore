@@ -1,6 +1,6 @@
 ﻿namespace Shared.Abstractions.Common;
 
-public abstract class AuditableEntity<TId> : Entity<TId>
+public abstract class AuditableEntity<TId> : Entity<TId>, IAuditableEntity
 {
     public DateTimeOffset CreatedAt { get; set; }
     public Guid? CreatedBy { get; set; }
