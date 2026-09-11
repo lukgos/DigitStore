@@ -12,6 +12,8 @@ services:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql
+    networks:
+      - shop-network
 
   opensearch:
     image: opensearchproject/opensearch:3.8.0
@@ -25,6 +27,8 @@ services:
       - "9200:9200"
     volumes:
       - opensearch_data:/usr/share/opensearch/data
+    networks:
+      - shop-network
 
   opensearch-dashboards:
     image: opensearchproject/opensearch-dashboards:3.8.0
@@ -36,7 +40,28 @@ services:
       - "5601:5601"
     depends_on:
       - opensearch
+    networks:
+      - shop-network
+
+  rabbitmq:
+    image: rabbitmq:4.3.5-management
+    container_name: shop_rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
+    networks:
+      - shop-network
 
 volumes:
   postgres_data:
   opensearch_data:
+  rabbitmq_data:
+
+networks:
+  shop-network:
+    driver: bridge

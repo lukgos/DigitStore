@@ -9,6 +9,6 @@ public class ProductDocument
     public Guid? CategoryId { get; init; }
     public string? CategoryName { get; init; }
     public IEnumerable<string> Tags { get; init; } = [];
-    public Dictionary<string, string> Attributes { get; init; } = new();
+    public IReadOnlyDictionary<string, string> Attributes { get; init; } = new Dictionary<string, string>();
     public string? PrimaryImageUrl { get; init; }
 }

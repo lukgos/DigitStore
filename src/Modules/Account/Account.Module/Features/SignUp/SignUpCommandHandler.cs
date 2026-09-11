@@ -1,16 +1,18 @@
-﻿using Account.Module.Abstractions;
+﻿using Account.Contracts.Events;
+using Account.Module.Abstractions;
 using Account.Module.DAL.Repositories;
 using Account.Module.Entities;
 using Account.Module.Exceptions;
 using Account.Module.ValueObjects;
+using MassTransit;
 using Shared.Abstractions.CQRS;
 using Shared.Abstractions.ValueObjects;
 
 namespace Account.Module.Features.SignUp;
 
-public sealed class SignUpCommandHandler(IUserRepository userRepository, IPasswordManager passwordManager) : ICommandHandler<SignUpCommand>
+public sealed class SignUpCommandHandler(IUserRepository userRepository, IPasswordManager passwordManager, IPublishEndpoint publishEndpoint) : ICommandHandler<SignUpCommand>
 {
-    public async Task HandleAsync(SignUpCommand command, CancellationToken cancellationToken = default)
+    public async Task HandleAsync(SignUpCommand command, CancellationToken cancellationToken)
     {
         var email = new Email(command.Email);
 
@@ -25,5 +27,7 @@ public sealed class SignUpCommandHandler(IUserRepository userRepository, IPasswo
         var user = User.Create(userId, email, passwordHash, Role.User);
 
         await userRepository.AddAsync(user, cancellationToken);
+        
+        await publishEndpoint.Publish(new AccountCreated(userId.Value, email.Value), cancellationToken);
     }
 }

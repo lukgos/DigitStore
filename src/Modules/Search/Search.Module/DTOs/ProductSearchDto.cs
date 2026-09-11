@@ -8,5 +8,5 @@ public record ProductSearchDto(
     Guid? CategoryId,
     string? CategoryName,
     IEnumerable<string> Tags,
-    Dictionary<string, string> Attributes,
+    IReadOnlyDictionary<string, string> Attributes,
     string? PrimaryImageUrl);

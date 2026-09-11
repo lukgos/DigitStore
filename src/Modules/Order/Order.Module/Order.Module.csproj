@@ -10,6 +10,8 @@
       <ProjectReference Include="..\..\..\Shared\Shared.Abstractions\Shared.Abstractions.csproj" />
       <ProjectReference Include="..\..\..\Shared\Shared.Application\Shared.Application.csproj" />
       <ProjectReference Include="..\..\..\Shared\Shared.EntityFramework\Shared.EntityFramework.csproj" />
+      <ProjectReference Include="..\..\Distribution\Distribution.Contracts\Distribution.Contracts.csproj" />
+      <ProjectReference Include="..\..\Payment\Payment.Contracts\Payment.Contracts.csproj" />
       <ProjectReference Include="..\..\Catalog\Catalog.Contracts\Catalog.Contracts.csproj" />
       <ProjectReference Include="..\Order.Contracts\Order.Contracts.csproj" />
     </ItemGroup>

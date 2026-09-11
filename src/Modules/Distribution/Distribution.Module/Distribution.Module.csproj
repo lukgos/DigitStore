@@ -6,4 +6,12 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
+    <ItemGroup>
+        <ProjectReference Include="..\..\..\Shared\Shared.Abstractions\Shared.Abstractions.csproj" />
+        <ProjectReference Include="..\..\..\Shared\Shared.Application\Shared.Application.csproj" />
+        <ProjectReference Include="..\..\..\Shared\Shared.EntityFramework\Shared.EntityFramework.csproj" />
+        <ProjectReference Include="..\..\Order\Order.Contracts\Order.Contracts.csproj" />
+        <ProjectReference Include="..\Distribution.Contracts\Distribution.Contracts.csproj" />
+    </ItemGroup>
+
 </Project>

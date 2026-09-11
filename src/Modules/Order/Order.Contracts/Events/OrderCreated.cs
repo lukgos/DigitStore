@@ -1,3 +1,3 @@
 ﻿namespace Order.Contracts.Events;
 
-public record OrderCreated();
+public record OrderCreated(Guid OrderId, decimal TotalAmount);

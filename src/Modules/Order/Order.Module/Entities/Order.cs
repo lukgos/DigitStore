@@ -55,6 +55,16 @@ public class Order : AuditableEntity<OrderId>
         
         Status = OrderStatus.Paid;
     }
+    
+    public void MarkAsDelivered()
+    {
+        if (Status != OrderStatus.Paid)
+        {
+            throw new InvalidOrderStateException(); 
+        }
+    
+        Status = OrderStatus.Delivered;
+    }
 
     public void Cancel()
     {

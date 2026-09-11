@@ -22,17 +22,6 @@ public static class GetProductEndpoint
                 {
                     return Results.NotFound();
                 }
-
-                var eTag = $"\"{product.Version}\"";
-
-                var clientETag = httpContext.Request.Headers.IfNoneMatch.ToString();
-
-                if (clientETag == eTag)
-                {
-                    return Results.StatusCode(StatusCodes.Status304NotModified);
-                }
-
-                httpContext.Response.Headers.ETag = eTag;
                 
                 return Results.Ok(product);
             })

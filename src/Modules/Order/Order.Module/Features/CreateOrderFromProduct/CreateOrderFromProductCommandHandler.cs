@@ -1,4 +1,6 @@
 ﻿using Catalog.Contracts.Services;
+using MassTransit;
+using Order.Contracts.Events;
 using Order.Module.DTOs;
 using Order.Module.Exceptions;
 using Order.Module.Repositories;
@@ -8,7 +10,7 @@ using Shared.Abstractions.ValueObjects;
 
 namespace Order.Module.Features.CreateOrderFromProduct;
 
-public sealed class CreateOrderFromProductCommandHandler(IOrderRepository orderRepository, ICatalogApi catalogApi) : ICommandHandler<CreateOrderFromProductCommand>
+public sealed class CreateOrderFromProductCommandHandler(IOrderRepository orderRepository, ICatalogApi catalogApi, IPublishEndpoint publishEndpoint) : ICommandHandler<CreateOrderFromProductCommand>
 {
     public async Task HandleAsync(CreateOrderFromProductCommand command, CancellationToken ct)
     {
@@ -24,6 +26,7 @@ public sealed class CreateOrderFromProductCommandHandler(IOrderRepository orderR
         var productId = new ProductId(command.ProductId);
         var quantity = new Quantity(command.Quantity);
         var unitPrice = new Money(product.Price);
+        var totalPrice = quantity * unitPrice;
 
         var orderItems = new List<OrderItemDto>
         {
@@ -34,5 +37,7 @@ public sealed class CreateOrderFromProductCommandHandler(IOrderRepository orderR
 
         await orderRepository.AddAsync(order, ct);
         await orderRepository.SaveChangesAsync(ct);
+        
+        await publishEndpoint.Publish(new OrderCreated(orderId, totalPrice), ct);
     }
 }
