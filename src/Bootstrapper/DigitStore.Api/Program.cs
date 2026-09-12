@@ -13,6 +13,7 @@ var app = builder.Build();
 app.UseInfrastructureServices();
 
 app.MapModuleEndpoints();
+app.MapInfrastructureEndpoints();
 
 await app.ApplyMigrationsAsync();
 

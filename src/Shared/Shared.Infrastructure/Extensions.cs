@@ -1,7 +1,12 @@
 ﻿using System.Reflection;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Npgsql;
+using OpenTelemetry.Metrics;
+using OpenTelemetry.Resources;
+using OpenTelemetry.Trace;
 using Serilog;
 using Shared.Abstractions.Auth;
 using Shared.Abstractions.CQRS;
@@ -18,10 +23,31 @@ public static class Extensions
     {
         services.AddScoped<ExceptionMiddleware>();
         
+        services.AddEndpointsApiExplorer();
+        services.AddSwaggerGen(c => c.CustomSchemaIds(x => x.FullName));
+        
         services.AddSerilog((serviceProvider, loggerConfiguration) => loggerConfiguration
             .ReadFrom.Configuration(configuration)
             .ReadFrom.Services(serviceProvider)
             .Enrich.FromLogContext());
+        
+        var serviceName = configuration.GetValue<string>("Telemetry:ServiceName");
+        var otlpEndpoint = configuration.GetValue<string>("Telemetry:Endpoint");
+
+        services.AddOpenTelemetry()
+            .ConfigureResource(res => res.AddService(serviceName))
+            .WithTracing(tracing => tracing
+                .AddAspNetCoreInstrumentation()
+                .AddHttpClientInstrumentation()
+                .AddEntityFrameworkCoreInstrumentation()
+                .AddNpgsql()
+                .AddOtlpExporter(opt => opt.Endpoint = new Uri(otlpEndpoint)))
+            .WithMetrics(metrics => metrics
+                .AddAspNetCoreInstrumentation()
+                .AddHttpClientInstrumentation()
+                .AddProcessInstrumentation()
+                .AddRuntimeInstrumentation()
+                .AddPrometheusExporter());
         
         services.AddAuthorization();
         services.AddHttpContextAccessor();
@@ -37,6 +63,9 @@ public static class Extensions
     
     public static IApplicationBuilder UseInfrastructureServices(this IApplicationBuilder app)
     {
+        app.UseSwagger();
+        app.UseSwaggerUI();
+        
         app.UseSerilogRequestLogging();
         app.UseMiddleware<ExceptionMiddleware>();
         
@@ -44,5 +73,11 @@ public static class Extensions
         app.UseAuthorization();
     
         return app;
+    }
+    
+    public static IEndpointRouteBuilder MapInfrastructureEndpoints(this IEndpointRouteBuilder endpoints)
+    {
+        endpoints.MapPrometheusScrapingEndpoint();
+        return endpoints;
     }
 }

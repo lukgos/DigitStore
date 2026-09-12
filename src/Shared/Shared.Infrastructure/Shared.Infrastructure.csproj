@@ -7,18 +7,28 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Shared.Abstractions\Shared.Abstractions.csproj" />
-      <ProjectReference Include="..\Shared.Application\Shared.Application.csproj" />
-      <ProjectReference Include="..\Shared.EntityFramework\Shared.EntityFramework.csproj" />
+        <ProjectReference Include="..\Shared.Abstractions\Shared.Abstractions.csproj" />
+        <ProjectReference Include="..\Shared.Application\Shared.Application.csproj" />
+        <ProjectReference Include="..\Shared.EntityFramework\Shared.EntityFramework.csproj" />
     </ItemGroup>
 
     <ItemGroup>
-      <PackageReference Include="FluentValidation" />
-      <PackageReference Include="FluentValidation.DependencyInjectionExtensions" />
-      <PackageReference Include="MassTransit.RabbitMQ" />
-      <PackageReference Include="Scrutor" />
-      <PackageReference Include="Serilog.AspNetCore" />
-      <PackageReference Include="Serilog.Sinks.Seq" />
+        <PackageReference Include="FluentValidation" />
+        <PackageReference Include="FluentValidation.DependencyInjectionExtensions" />
+        <PackageReference Include="MassTransit.RabbitMQ" />
+        <PackageReference Include="Npgsql.OpenTelemetry" />
+        <PackageReference Include="OpenTelemetry.Exporter.OpenTelemetryProtocol" />
+        <PackageReference Include="OpenTelemetry.Exporter.Prometheus.AspNetCore" />
+        <PackageReference Include="OpenTelemetry.Extensions.Hosting" />
+        <PackageReference Include="OpenTelemetry.Instrumentation.AspNetCore" />
+        <PackageReference Include="OpenTelemetry.Instrumentation.EntityFrameworkCore" />
+        <PackageReference Include="OpenTelemetry.Instrumentation.Http" />
+        <PackageReference Include="OpenTelemetry.Instrumentation.Process" />
+        <PackageReference Include="OpenTelemetry.Instrumentation.Runtime" />
+        <PackageReference Include="Scrutor" />
+        <PackageReference Include="Serilog.AspNetCore" />
+        <PackageReference Include="Serilog.Sinks.Seq" />
+        <PackageReference Include="Swashbuckle.AspNetCore" />
     </ItemGroup>
 
 </Project>
