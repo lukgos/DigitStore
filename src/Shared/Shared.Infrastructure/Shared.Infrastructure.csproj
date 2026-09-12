@@ -17,6 +17,8 @@
       <PackageReference Include="FluentValidation.DependencyInjectionExtensions" />
       <PackageReference Include="MassTransit.RabbitMQ" />
       <PackageReference Include="Scrutor" />
+      <PackageReference Include="Serilog.AspNetCore" />
+      <PackageReference Include="Serilog.Sinks.Seq" />
     </ItemGroup>
 
 </Project>

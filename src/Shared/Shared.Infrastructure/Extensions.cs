@@ -1,9 +1,14 @@
 ﻿using System.Reflection;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Serilog;
 using Shared.Abstractions.Auth;
+using Shared.Abstractions.CQRS;
 using Shared.Infrastructure.Auth;
+using Shared.Infrastructure.Decorators;
 using Shared.Infrastructure.Messaging;
+using Shared.Infrastructure.Middlewares;
 
 namespace Shared.Infrastructure;
 
@@ -11,11 +16,33 @@ public static class Extensions
 {
     public static IServiceCollection AddInfrastructureServices(this IServiceCollection services,  IConfiguration configuration, params Assembly[] moduleAssemblies)
     {
+        services.AddScoped<ExceptionMiddleware>();
+        
+        services.AddSerilog((serviceProvider, loggerConfiguration) => loggerConfiguration
+            .ReadFrom.Configuration(configuration)
+            .ReadFrom.Services(serviceProvider)
+            .Enrich.FromLogContext());
+        
+        services.AddAuthorization();
         services.AddHttpContextAccessor();
         services.AddScoped<IUserContext, UserContext>();
 
         services.AddMessaging(configuration, moduleAssemblies);
         
+        services.Decorate(typeof(ICommandHandler<>), typeof(LoggingCommandHandlerDecorator<>));
+        services.Decorate(typeof(IQueryHandler<,>), typeof(LoggingQueryHandlerDecorator<,>));
+        
         return services;
+    }
+    
+    public static IApplicationBuilder UseInfrastructureServices(this IApplicationBuilder app)
+    {
+        app.UseSerilogRequestLogging();
+        app.UseMiddleware<ExceptionMiddleware>();
+        
+        app.UseAuthentication();
+        app.UseAuthorization();
+    
+        return app;
     }
 }
