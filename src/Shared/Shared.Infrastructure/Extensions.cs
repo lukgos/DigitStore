@@ -1,5 +1,6 @@
 ﻿using System.Reflection;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -77,7 +78,21 @@ public static class Extensions
     
     public static IEndpointRouteBuilder MapInfrastructureEndpoints(this IEndpointRouteBuilder endpoints)
     {
-        endpoints.MapPrometheusScrapingEndpoint();
+        endpoints.MapPrometheusScrapingEndpoint()
+            .AddEndpointFilter(async (context, next) =>
+            {
+                var config = context.HttpContext.RequestServices.GetRequiredService<IConfiguration>();
+                var expectedToken = config.GetValue<string>("Telemetry:MetricsToken");
+                var authHeader = context.HttpContext.Request.Headers.Authorization.ToString();
+                
+                if (authHeader != $"Bearer {expectedToken}")
+                {
+                    return Results.Unauthorized();
+                }
+                
+                return await next(context);
+            });
+
         return endpoints;
     }
 }
