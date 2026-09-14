@@ -2,5 +2,5 @@
 
 public sealed class OpenSearchOptions
 {
-    public string Uri { get; init; } = string.Empty;
+    public string Url { get; init; } = string.Empty;
 }

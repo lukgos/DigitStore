@@ -48,7 +48,13 @@ public sealed class ExceptionMiddleware(ILogger<ExceptionMiddleware> logger) : I
             problemDetails.Title = "Bad Request";
             problemDetails.Detail = customException.Message;
         }
-
+        else if (exception is UnauthorizedAccessException unauthorizedException)
+        {
+            context.Response.StatusCode = StatusCodes.Status403Forbidden;
+            problemDetails.Status = StatusCodes.Status403Forbidden;
+            problemDetails.Title = "Forbidden";
+            problemDetails.Detail = unauthorizedException.Message;
+        }
         else
         {
             context.Response.StatusCode = StatusCodes.Status500InternalServerError;

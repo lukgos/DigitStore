@@ -11,7 +11,7 @@ internal static class OpenSearchExtensions
         var options = new OpenSearchOptions();
         configuration.GetSection("OpenSearch").Bind(options);
 
-        var settings = new ConnectionSettings(new Uri(options.Uri))
+        var settings = new ConnectionSettings(new Uri(options.Url))
             .DefaultIndex("products")
             .EnableDebugMode();
 

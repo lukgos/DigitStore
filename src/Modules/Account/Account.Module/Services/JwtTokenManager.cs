@@ -9,7 +9,7 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace Account.Module.Services;
 
-internal sealed class JwtTokenManager(IOptions<JwtOptions> options) : ITokenManager
+public sealed class JwtTokenManager(IOptions<JwtOptions> options) : ITokenManager
 {
     private readonly JwtOptions _options = options.Value;
 

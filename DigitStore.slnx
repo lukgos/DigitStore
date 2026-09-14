@@ -39,5 +39,10 @@
     <Project Path="src/Shared/Shared.Infrastructure/Shared.Infrastructure.csproj" />
   </Folder>
   <Folder Name="/tests/" />
+  <Folder Name="/tests/Modules/" />
+  <Folder Name="/tests/Modules/Account/">
+    <Project Path="tests/Modules/Account/Account.IntegrationTests/Account.IntegrationTests.csproj" />
+    <Project Path="tests/Modules/Account/Account.UnitTests/Account.UnitTests.csproj" />
+  </Folder>
   <Folder Name="/tools/" />
 </Solution>
