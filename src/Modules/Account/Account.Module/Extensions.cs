@@ -1,4 +1,4 @@
-﻿﻿using System.Text;
+﻿using System.Text;
 using Account.Module.Abstractions;
 using Account.Module.DAL;
 using Account.Module.DAL.Repositories;
@@ -37,6 +37,7 @@ public static class Extensions
             .AddScoped<ITokenStorage, TokenStorage>();
         
         services.AddScoped<IUserRepository, UserRepository>();
+        services.AddScoped<AccountSeeder>();
         
         var jwtOptions = configuration
             .GetSection("JwtOptions")

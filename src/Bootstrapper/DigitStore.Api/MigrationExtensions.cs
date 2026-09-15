@@ -22,6 +22,12 @@ public static class MigrationExtensions
             await catalogDbContext.Database.MigrateAsync();
             await orderDbContext.Database.MigrateAsync();
             
+            if (!await accountDbContext.Users.AnyAsync())
+            {
+                var accountSeeder = services.GetRequiredService<AccountSeeder>();
+                await accountSeeder.SeedAsync();
+            }
+            
         }
         catch (Exception ex)
         {
