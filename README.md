@@ -32,13 +32,13 @@ The project is built using a **Modular Monolith** architecture combined with the
 **[Catalog](https://github.com/lukgos/DigitStore/tree/main/src/Modules/Catalog/Catalog.Module)** - Products management
  - [Available actions:](https://github.com/lukgos/DigitStore/tree/main/src/Modules/Catalog/Catalog.Module/Features)
     - Create and delete categories
-    - Create products
+    - Create and update products
     - Get product details
 ---
 **[Search](https://github.com/lukgos/DigitStore/tree/main/src/Modules/Search/Search.Module)** - Fast product search based on OpenSearch
  - [Available actions:](https://github.com/lukgos/DigitStore/tree/main/src/Modules/Search/Search.Module/Features)
     - Search products based on query string
-    - Consumes the product creation event to create an equivalent product in the OpenSearch database for fast searching
+    - Consumes product creation and update events to create or update an equivalent product in the OpenSearch database for fast searching
 ---
 **[Order](https://github.com/lukgos/DigitStore/tree/main/src/Modules/Order/Order.Module)** - Order lifecycle management
  - [Available actions:](https://github.com/lukgos/DigitStore/tree/main/src/Modules/Order/Order.Module/Features)
