@@ -21,7 +21,7 @@ public sealed class Product : AuditableEntity<ProductId>
     public IReadOnlyCollection<string> Tags => _tags.AsReadOnly();
     
 
-    private Dictionary<string, string> _attributes = new();
+    private readonly Dictionary<string, string> _attributes = new();
     public IReadOnlyDictionary<string, string> Attributes => _attributes.AsReadOnly();
     
     private readonly List<ProductPriceHistory> _priceHistory = new();
@@ -65,7 +65,12 @@ public sealed class Product : AuditableEntity<ProductId>
 
     public void UpdateAttributes(Dictionary<string, string> attributes)
     {
-        _attributes = attributes;
+        _attributes.Clear();
+
+        foreach (var attribute in attributes)
+        {
+            _attributes.Add(attribute.Key, attribute.Value);
+        }
     }
 
     public void UpdateTags(IEnumerable<string> tags)

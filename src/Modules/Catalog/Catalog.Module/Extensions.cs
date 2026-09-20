@@ -5,6 +5,7 @@ using Catalog.Module.Features.AddCategory;
 using Catalog.Module.Features.AddProduct;
 using Catalog.Module.Features.DeleteCategory;
 using Catalog.Module.Features.GetProduct;
+using Catalog.Module.Features.UpdateProduct;
 using Catalog.Module.Repositories;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Configuration;
@@ -37,6 +38,7 @@ public static class Extensions
     {
         app.MapAddProductEndpoint();
         app.MapGetProductEndpoint();
+        app.MapUpdateProductEndpoint();
         
         app.MapAddCategoryEndpoint();
         app.MapDeleteCategoryEndpoint();
